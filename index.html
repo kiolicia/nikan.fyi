@@ -11,90 +11,42 @@
     <style>
       :root {
         --main-font: Georgia, "Times New Roman", Times, serif;
-        --header-font: Georgia, "Times New Roman", Times, serif;
+        --mono-font: monospace;
+
+        --bg-color: white;
         --text-color: black;
+        --text-gray: #a7a7a7;
+        --text-light-gray: #aaa;
         --separator-color: #e0e0e0;
+
+        --dark-bg-color: #121212;
+        --dark-text-color: white;
+        --dark-text-gray: gray;
+        --dark-text-light-gray: #aaa;
+        --dark-separator-color: #333;
+
         --title-font-size: 18px;
         --numbers-font-size: 13px;
         --bio-font-size: 13px;
         --header-font-size: 13px;
         --contact-font-size: 13px;
         --footer-font-size: 12px;
+
         --container-width: 525px;
         --max-container-width: 900px;
         --column-width: 45%;
         --spacing-large: -12.5px;
         --spacing-medium: 30px;
-      }
 
-      .banner {
-        align-items: center;
-        width: 525px;
-        border-radius: 10px;
-        margin-bottom: 30px;
-        filter: grayscale(1);
-      }
-
-      .menu {
-        font-family: monospace;
-        font-size: 13px;
-        font-weight: normal;
-        display: inline-block;
-        width: 50%;
-        text-align: center;
-        margin-left: 43.5px;
-      }
-      #dark-mode-toggle {
-        margin-left: auto;
-        margin-top: 0.1rem;
-        color: black;
-        background-color: transparent;
-        border: none;
-        cursor: pointer;
-      }
-      .separator,
-      .column-separator,
-      body.dark-mode a {
-        transition: background-color 0.2s ease, color 0.2s ease;
-      }
-      a,
-      .separator,
-      .column-separator,
-      #dark-mode-toggle i {
-        transition: color 0.2s ease, background-color 0.2s ease;
-      }
-      #dark-mode-toggle i {
-        transition: color 0.2s ease;
-      }
-      body.dark-mode #dark-mode-toggle {
-        color: white;
-      }
-      body.dark-mode {
-        background-color: #121212;
-        color: white;
-      }
-
-      body.dark-mode a {
-        color: gray;
-      }
-
-      body.dark-mode a:hover {
-        color: rgb(170, 170, 170);
-      }
-
-      body.dark-mode .separator {
-        background-color: #333;
-      }
-
-      body.dark-mode .column-separator {
-        background-color: #333;
+        --transition-fast: 0.2s ease;
+        --transition-slow: 0.875s ease;
       }
 
       body {
         font-family: var(--main-font);
         margin: 0;
         padding: 0;
-        background-color: white;
+        background-color: var(--bg-color);
         color: var(--text-color);
         display: flex;
         justify-content: center;
@@ -104,8 +56,9 @@
         opacity: 0;
         transform: translateY(100px);
         filter: blur(10px);
-        transition: opacity 0.875s ease, transform 0.875s ease,
-          filter 0.875s ease, background-color 0.2s ease, color 0.2s ease;
+        transition: opacity var(--transition-slow),
+          transform var(--transition-slow), filter var(--transition-slow),
+          background-color var(--transition-fast), color var(--transition-fast);
       }
 
       body.fade-in {
@@ -114,9 +67,39 @@
         filter: blur(0);
       }
 
+      body.dark-mode {
+        background-color: var(--dark-bg-color);
+        color: var(--dark-text-color);
+      }
+
+      body.dark-mode a {
+        color: var(--dark-text-gray);
+      }
+
+      body.dark-mode a:hover {
+        color: var(--dark-text-light-gray);
+      }
+
+      body.dark-mode .separator,
+      body.dark-mode .column-separator {
+        background-color: var(--dark-separator-color);
+      }
+
+      body.dark-mode #dark-mode-toggle {
+        color: var(--dark-text-color);
+      }
+
       .container {
         width: var(--container-width);
         max-width: var(--max-container-width);
+      }
+
+      .banner {
+        align-items: center;
+        width: 525px;
+        border-radius: 10px;
+        margin-bottom: var(--spacing-medium);
+        filter: grayscale(1);
       }
 
       .header {
@@ -126,13 +109,13 @@
       }
 
       .title {
-        font-family: var(--header-font);
+        font-family: var(--main-font);
         font-size: var(--title-font-size);
         display: inline;
       }
 
       .numbers {
-        font-family: monospace;
+        font-family: var(--mono-font);
         font-size: var(--numbers-font-size);
         font-weight: normal;
         vertical-align: top;
@@ -144,11 +127,37 @@
         height: 1px;
         background-color: var(--separator-color);
         margin: var(--spacing-medium) 0;
+        transition: background-color var(--transition-fast);
       }
 
       .bio {
         font-size: var(--bio-font-size);
         margin-top: var(--spacing-medium);
+      }
+
+      #dark-mode-toggle {
+        font-family: var(--mono-font);
+        font-size: var(--numbers-font-size);
+        font-weight: normal;
+        color: var(--text-color);
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        margin-left: 0;
+        margin-right: 3px;
+        padding: 0;
+        vertical-align: baseline;
+        transition: color var(--transition-fast);
+      }
+
+      a {
+        color: var(--text-color);
+        text-decoration: none;
+        transition: color var(--transition-fast);
+      }
+
+      a:hover {
+        color: var(--text-light-gray);
       }
 
       .columns {
@@ -164,9 +173,19 @@
       }
 
       .column h3 {
-        font-family: monospace;
+        font-family: var(--mono-font);
         font-size: var(--header-font-size);
-        font-weight: bold;
+        font-weight: normal;
+      }
+
+      .column-separator {
+        position: absolute;
+        right: -11%;
+        top: 25%;
+        width: 1px;
+        height: 50%;
+        background-color: var(--separator-color);
+        transition: background-color var(--transition-fast);
       }
 
       .contact,
@@ -179,70 +198,33 @@
         flex-direction: column;
       }
 
-      .contact a {
+      .contact a,
+      .news a {
         position: relative;
-        color: black;
-        text-decoration: none;
-        padding-right: 20px;
       }
 
-      .contact a:hover {
-        color: rgb(167, 167, 167);
+      .contact a:hover,
+      .news a:hover {
+        color: var(--text-gray);
       }
 
-      .contact a::after {
-        content: "🡭";
-        position: absolute;
-        right: 0;
-        color: gray;
+      .contact a,
+      .news a {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .contact a .fa-arrow-up-right-from-square,
+      .news a .fa-arrow-up-right-from-square {
+        color: inherit;
+        font-size: 11px;
+        margin-left: 8px;
       }
 
       .news {
         position: relative;
         width: 100%;
-      }
-
-      .news a {
-        padding-right: 20px;
-        color: black;
-        text-decoration: none;
-      }
-
-      .news a:hover {
-        color: rgb(167, 167, 167);
-      }
-
-      .news a::after {
-        content: "🡭";
-        position: absolute;
-        right: 0;
-        top: 50%;
-        transform: translateY(-50%);
-        color: gray;
-      }
-
-      .column-separator {
-        position: absolute;
-        right: -11%;
-        top: 25%;
-        width: 1px;
-        height: 50%;
-        background-color: var(--separator-color);
-      }
-
-      .footer {
-        margin-top: var(--spacing-large);
-        font-size: var(--footer-font-size);
-        color: gray;
-      }
-
-      a {
-        color: black;
-        text-decoration: none;
-      }
-
-      a:hover {
-        color: rgb(170, 170, 170);
       }
 
       @media (max-width: 768px) {
@@ -253,76 +235,43 @@
 
         .banner {
           width: 100%;
-          margin: 0 auto;
+          margin: 0 auto var(--spacing-medium);
           display: block;
-          margin-bottom: 30px;
         }
 
         .header {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          position: relative;
           width: 100%;
         }
 
         #dark-mode-toggle {
-          position: relative;
-          margin-left: 0;
-          margin-right: 10px;
-          margin-top: -8px;
-          top: auto;
-          right: auto;
-        }
-
-        .menu,
-        .title {
-          text-align: center;
-          margin-left: 0;
-          font-size: 13px;
-          display: inline-block;
-          white-space: nowrap;
+          margin-left: 5px;
         }
 
         .title {
-          font-size: 18px;
+          font-size: var(--title-font-size);
         }
 
         .columns {
-          display: flex;
           flex-direction: row;
           justify-content: space-between;
           align-items: flex-start;
         }
 
         .column {
-          width: 45%;
+          width: var(--column-width);
           text-align: left;
-        }
-
-        .contact a,
-        .news a {
-          text-align: left;
-        }
-
-        #dark-mode-toggle {
-          position: absolute;
-          top: 10px;
-          right: 10px;
         }
       }
 
       @media (max-width: 480px) {
-        .title,
-        .menu {
-          font-size: 13px;
+        .title {
+          font-size: 16px;
         }
 
         .banner {
           width: 100%;
-          margin: 0 auto;
+          margin: 0 auto var(--spacing-medium);
           display: block;
-          margin-bottom: 30px;
         }
 
         .header {
@@ -333,29 +282,11 @@
         }
 
         #dark-mode-toggle {
-          position: relative;
-          margin-top: 3px;
-          margin-left: auto;
-          margin-right: 0;
-          padding: 0;
-          top: 0;
-          order: 2;
-        }
-
-        .menu {
-          margin: 0 auto;
-          text-align: center;
-          white-space: nowrap;
+          margin-left: 5px;
         }
 
         .title {
           font-size: 16px;
-          order: 1;
-        }
-
-        .numbers {
-          order: 3;
-          margin-left: 1px;
         }
 
         .column {
@@ -370,11 +301,6 @@
         .contact,
         .news {
           font-size: 12px;
-        }
-
-        .contact a,
-        .news a {
-          padding-right: 15px;
         }
       }
     </style>
@@ -392,31 +318,20 @@
       </div>
       <div class="header">
         <span class="title">nikan.fyi ( ͡° ͜ʖ ͡°)</span>
-        <!--<span class="menu">
-          <a href="https://nikan.fyi/" target="_self"><b>[INFO]</b></a>
-          <span>/</span>
-          <a href="https://nikan.fyi/blog/" target="_self">[BLOG]</a>
-          <span>/</span>
-          <a href="https://nikan.fyi/misc/" target="_self">[MISC]</a>
-        </span> -->
-        <button id="dark-mode-toggle">
-          <i
-            class="fa-solid fa-circle-half-stroke"
-            id="fa-solid fa-circle-half-stroke"
-          ></i>
-        </button>
-        <span class="numbers">[1]</span>
+        <span class="numbers"
+          ><button id="dark-mode-toggle">[D/N]</button>[1]</span
+        >
       </div>
 
       <div class="separator"></div>
 
       <div class="bio">
         <p>
-          18 y/o currently living in germany. interested in programming, ai/ml,
-          ui/ux, video editing & 3d animation—feel free to reach out if you have
-          any questions or inquiries.
+          19 y/o currently living in germany. interested in programming, ai/ml,
+          ui/ux, graphic design, video editing & 3d animation - feel free to
+          reach out!
         </p>
-        <p>“The best way to predict the future is to invent it.” — Alan Kay</p>
+        <p>"The best way to predict the future is to invent it." - Alan Kay</p>
       </div>
 
       <div class="separator"></div>
@@ -425,13 +340,21 @@
         <div class="column">
           <h3>[CONTACT]<span class="numbers">[2]</span></h3>
           <p class="contact">
-            <a href="mailto:msg@nikan.cc">Email</a>
-            <a href="https://twitter.com/_nik4n" target="_blank">Twitter</a>
+            <a href="mailto:msg@nikan.cc">
+              <span>Email</span>
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+            <a href="https://twitter.com/_nik4n" target="_blank">
+              <span>Twitter</span>
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
             <a
               href="https://discord.com/users/283610160276963328"
               target="_blank"
-              >Discord</a
             >
+              <span>Discord</span>
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
           </p>
           <div class="column-separator"></div>
         </div>
@@ -439,7 +362,10 @@
         <div class="column">
           <h3>[PROJECTS]<span class="numbers">[3]</span></h3>
           <p class="news">
-            <a href="https://ligare.ai" target="_blank">LigareAI</a>
+            <a href="https://ligare.ai" target="_blank">
+              <span>LigareAI</span>
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
           </p>
         </div>
       </div>
@@ -448,20 +374,11 @@
       window.addEventListener("load", () => {
         document.body.classList.add("fade-in");
       });
+
       const toggleButton = document.getElementById("dark-mode-toggle");
-      const sunIcon = document.getElementById("toggle-off-icon");
-      const moonIcon = document.getElementById("toggle-on-icon");
 
       toggleButton.addEventListener("click", () => {
         document.body.classList.toggle("dark-mode");
-
-        if (document.body.classList.contains("dark-mode")) {
-          sunIcon.style.display = "none";
-          moonIcon.style.display = "inline";
-        } else {
-          sunIcon.style.display = "inline";
-          moonIcon.style.display = "none";
-        }
       });
     </script>
   </body>
